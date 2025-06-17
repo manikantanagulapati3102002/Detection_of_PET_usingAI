@@ -143,18 +143,6 @@ Install via:
 pip install -r requirements.txt
 ```
 
----
-
-## 📸 Screenshots
-
-You can optionally include:
-
-* Prediction UI
-* API response JSON
-* Training accuracy plot (if added)
-
----
-
 '''
 
 ### 1. Install Requirements

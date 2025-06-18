@@ -9,7 +9,7 @@ import io
 
 app = FastAPI()
 
-# Allow frontend to access this API
+# Allow frontend to access this API by enabling CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -20,9 +20,10 @@ app.add_middleware(
 # Load the trained model
 model = load_model("models/model.h5")
 
-# Define class labels (update if you're not using cat/dog)
+# Here we Defines output class names based on index (0: cat, 1: dog).
 class_names = ['cat', 'dog']
 
+# Here we Converts uploaded file into a preprocessed image ready for prediction.
 def preprocess_image(image_bytes):
     image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
     image = image.resize((224, 224))
@@ -30,11 +31,13 @@ def preprocess_image(image_bytes):
     image_array = np.expand_dims(image_array, axis=0)
     return image_array
 
+#post api
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
-    image_bytes = await file.read()
+    image_bytes = await file.read() # Reads uploaded file.
     processed_image = preprocess_image(image_bytes)
-    prediction = model.predict(processed_image)[0][0]
+    prediction = model.predict(processed_image)[0][0] #Calls model.predict(...).
     label = class_names[int(prediction > 0.5)]
-    confidence = float(prediction) if label == "dog" else 1 - float(prediction)
+    confidence = float(prediction) if label == "dog" else 1 - float(prediction) #Determines class (cat or dog) based on output threshold.
     return {"class": label, "confidence": round(confidence, 2)}
+#Returns class and confidence.

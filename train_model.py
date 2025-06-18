@@ -9,7 +9,7 @@ import os
 train_dir = 'dataset/train'
 val_dir = 'dataset/validation'
 
-# Image dimensions
+#It is for Image dimensions
 IMG_HEIGHT = 224
 IMG_WIDTH = 224
 BATCH_SIZE = 32

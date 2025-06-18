@@ -76,13 +76,6 @@ dataset/
 │   └── dog/
 ```
 
-Split training/validation manually or use:
-
-```powershell
-# PowerShell example
-Get-ChildItem -Path .\dataset\train\cat\*.jpg | Sort-Object LastWriteTime -Descending | Select-Object -First 30 | ForEach-Object { Copy-Item $_.FullName .\dataset\validation\cat\ }
-Get-ChildItem -Path .\dataset\train\dog\*.jpg | Sort-Object LastWriteTime -Descending | Select-Object -First 30 | ForEach-Object { Copy-Item $_.FullName .\dataset\validation\dog\ }
-```
 
 ### 3. Train Model
 
@@ -142,6 +135,7 @@ Install via:
 ```bash
 pip install -r requirements.txt
 ```
+
 
 '''
 
